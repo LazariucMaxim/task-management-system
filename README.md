@@ -1,0 +1,2 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/qh4dcjsqpxvukuob?svg=true)](https://ci.appveyor.com/project/LazariucMaxim/task-management-system)
+![CI](https://github.com/LazariucMaxim/task-management-system/actions/workflows/main.yml/badge.svg)

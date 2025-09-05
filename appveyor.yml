@@ -1,0 +1,11 @@
+image: Ubuntu2004
+stack: node 22
+branches:
+  only:
+    - main
+cache: node_modules
+install:
+  - yarn install
+build: off
+test_script:
+  - yarn run lint
