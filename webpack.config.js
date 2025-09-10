@@ -6,7 +6,7 @@ module.exports = {
     entry: "./src/index.js",
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "main.js",
+        filename: "index.js",
     },
     module: {
         rules: [
@@ -30,10 +30,10 @@ module.exports = {
     plugins: [
         new HtmlWebPackPlugin({
           template: './src/index.html',
-          filename: './main.html',
+          filename: './index.html',
         }),
         new MiniCssExtractPlugin({
-            filename: 'main.css',
+            filename: 'index.css',
           })
       ]
 };
