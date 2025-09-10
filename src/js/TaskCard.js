@@ -9,12 +9,12 @@ export default class TaskCard {
         this.textEl = document.createElement('div');
         this.textEl.classList.add('task-card__text');
         this.textEl.textContent = this.content;
-        this.el.appendChild(this.textEl);
+        this.el.append(this.textEl);
 
         this.deleteBtn = document.createElement('button');
         this.deleteBtn.classList.add('task-card__delete');
         this.deleteBtn.textContent = '✖';
-        this.el.appendChild(this.deleteBtn);
+        this.el.append(this.deleteBtn);
 
         this.deleteBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -50,16 +50,16 @@ export default class TaskCard {
         this.dragEl.style.pointerEvents = 'none';
         this.dragEl.style.width = `${this.el.offsetWidth}px`;
         this.dragEl.style.zIndex = 1000;
-        document.body.appendChild(this.dragEl);
+        document.body.append(this.dragEl);
 
         this.offsetX = e.clientX - this.el.getBoundingClientRect().left;
         this.offsetY = e.clientY - this.el.getBoundingClientRect().top;
 
-        this.el.style.opacity = 0.5;
+        this.el.style.display = "none";
 
         this.placeholder = document.createElement('div');
         this.placeholder.classList.add('task-card', 'placeholder');
-        this.placeholder.style.height = `${this.el.offsetHeight}px`;
+        this.placeholder.style.height = `${this.dragEl.offsetHeight}px`;
         this.elInitialParent.insertBefore(this.placeholder, this.el);
 
         document.addEventListener('mousemove', this.onDragMove);
@@ -90,7 +90,7 @@ export default class TaskCard {
                     }
                 }
 
-                if (!insertedHere) col.appendChild(this.placeholder);
+                if (!insertedHere) col.append(this.placeholder);
 
                 this.targetColumnKey = col.closest('.task-column').dataset.column;
                 inserted = true;
@@ -101,7 +101,7 @@ export default class TaskCard {
             if (this.elInitialNext) {
                 this.elInitialParent.insertBefore(this.placeholder, this.elInitialNext);
             } else {
-                this.elInitialParent.appendChild(this.placeholder);
+                this.elInitialParent.append(this.placeholder);
             }
             this.targetColumnKey = this.elInitialParent.closest('.task-column').dataset.column;
         }
@@ -112,7 +112,7 @@ export default class TaskCard {
         const index = Array.from(parent.children).indexOf(this.placeholder);
 
         this.placeholder.replaceWith(this.el);
-        this.el.style.opacity = 1;
+        this.el.removeAttribute("style");
         this.elInitialParent = null;
 
         this.dragEl.remove();

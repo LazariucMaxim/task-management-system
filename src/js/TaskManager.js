@@ -14,12 +14,12 @@ export default class TaskManager {
         const header = document.createElement('div');
         header.classList.add('task-board__header');
         header.textContent = 'Task Manager Board';
-        this.container.appendChild(header);
+        this.container.append(header);
 
         this.loadFromStorage();
         this.renderColumns();
 
-        parent.appendChild(this.container);
+        parent.append(this.container);
     }
 
     loadFromStorage() {
@@ -60,18 +60,18 @@ export default class TaskManager {
                 const card = new TaskCard(content, key);
                 card.setDeleteHandler(this.handleDelete.bind(this));
                 card.setMoveHandler(this.handleMove.bind(this));
-                colBody.appendChild(card.getElement());
+                colBody.append(card.getElement());
             });
 
-            col.appendChild(colTitle);
-            col.appendChild(colBody);
+            col.append(colTitle);
+            col.append(colBody);
 
-            col.appendChild(this.createAddPanel(key, colBody));
+            col.append(this.createAddPanel(key, colBody));
 
-            columnsWrap.appendChild(col);
+            columnsWrap.append(col);
         });
 
-        this.container.appendChild(columnsWrap);
+        this.container.append(columnsWrap);
     }
 
     createAddPanel(columnKey, colBody) {
@@ -98,12 +98,12 @@ export default class TaskManager {
         cancelBtn.classList.add('add-panel__cancel');
         cancelBtn.textContent = 'Cancel';
 
-        form.appendChild(textarea);
-        form.appendChild(saveBtn);
-        form.appendChild(cancelBtn);
+        form.append(textarea);
+        form.append(saveBtn);
+        form.append(cancelBtn);
 
-        panel.appendChild(addBtn);
-        panel.appendChild(form);
+        panel.append(addBtn);
+        panel.append(form);
 
         addBtn.addEventListener('click', () => {
             addBtn.style.display = 'none';
@@ -119,7 +119,7 @@ export default class TaskManager {
             card.setDeleteHandler(this.handleDelete.bind(this));
             card.setMoveHandler(this.handleMove.bind(this));
 
-            colBody.appendChild(card.getElement());
+            colBody.append(card.getElement());
             this.state[columnKey].push(value);
             this.saveToStorage();
 
@@ -151,11 +151,9 @@ export default class TaskManager {
 
         if (!this.state[newColumnKey]) this.state[newColumnKey] = [];
 
-        // удаляем из старой колонки
         const oldIdx = this.state[oldCol].indexOf(taskCard.content);
         if (oldIdx > -1) this.state[oldCol].splice(oldIdx, 1);
 
-        // вставляем в новую
         this.state[newColumnKey].splice(newIndex, 0, taskCard.content);
         taskCard.columnKey = newColumnKey;
 
